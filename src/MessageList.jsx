@@ -4,7 +4,18 @@ import React, { Component } from 'react';
 
 class MessageList extends Component {
   render() {
-    return ();
+    const message = this.props.currentMessage.map(message => {
+      return < Message
+        user={message.username}
+        content={message.content} />
+    })
+
+    return (
+      <main className="messages">
+          { message }
+      </main>
+      )
+
   }
 }
 
