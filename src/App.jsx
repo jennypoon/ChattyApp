@@ -3,7 +3,6 @@ import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 
 
-
 const data =
 {
   "currentUser": {"name": "Bob"},
@@ -73,6 +72,7 @@ constructor(props) {
     };
 
     this.addMessage = this.addMessage.bind(this)
+    this.changeUser = this.changeUser.bind(this)
 
 }
 
@@ -87,6 +87,13 @@ addMessage(message, user) {
   }
 
   this.socket.send(JSON.stringify(newMessage));
+
+}
+
+changeUser(user) {
+  console.log("In Change User")
+  console.log("user:", user)
+  this.setState({currentUser: {name: user}})
 
 }
 
@@ -111,7 +118,7 @@ componentDidMount() {
       <div>
         <Navbar />
         <MessageList currentMessage={ this.state.messages }/>
-        <ChatBar addMessage={ this.addMessage } currentUser={ this.state.currentUser.name } />
+        <ChatBar changeUser={ this.changeUser } addMessage={ this.addMessage } currentUser={ this.state.currentUser.name } />
       </div>
     )
   }
