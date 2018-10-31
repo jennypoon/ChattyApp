@@ -71,30 +71,52 @@ constructor(props) {
       currentUser: data.currentUser,
       messages: data.messages
     }
+
+    this.addMessage = this.addMessage.bind(this)
+
 }
 
-componentDidMount() {
-  console.log("componentDidMount <App />");
-  setTimeout(() => {
-    console.log("Simulating incoming message");
-    // Add a new message to the list of messages in the data store
-    const newMessage = {id: 3, username: "Michelle", content: "Hello there!", type: "incomingMessage" };
-    const newMessages = this.state.messages.concat(newMessage)
-    // Update the state of the app component.
-    // Calling setState will trigger a call to render() in App and all child components.
-    this.setState({messages: newMessages})
+addMessage(message, user) {
+  const newMessage = {
+    id: this.state.messages.length + 1,
+    type: "incomingMessage",
+    content: message,
+    username: user
+  }
 
-  }, 3000);
-}
+  console.log("newMessages in AddMessage:", newMessages)
+
+  const newMessages = this.state.messages.concat(newMessage)
+  console.log("Messaged recieved!")
+  console.log("newMessages", newMessages)
+  this.setState({messages: newMessages})
+
+  }
+
+
+
+// componentDidMount() {
+//   console.log("componentDidMount <App />");
+//   setTimeout(() => {
+//     console.log("Simulating incoming message");
+//     // Add a new message to the list of messages in the data store
+//     const newMessage = {id: 3, username: "Michelle", content: "Hello there!", type: "incomingMessage" };
+//     const newMessages = this.state.messages.concat(newMessage)
+//     // Update the state of the app component.
+//     // Calling setState will trigger a call to render() in App and all child components.
+//     this.setState({messages: newMessages})
+
+//   }, 3000);
+// }
 
 
   render() {
-    console.log("this current state", this.state)
+    console.log("current state after render", this.state)
     return (
       <div>
         <Navbar />
         <MessageList currentMessage={ this.state.messages }/>
-        <ChatBar currentUser={ this.state.currentUser.name } />
+        <ChatBar addMessage={ this.addMessage } currentUser={ this.state.currentUser.name } />
       </div>
     )
   }
