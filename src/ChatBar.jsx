@@ -2,12 +2,16 @@ import React, {Component} from 'react';
 
 class ChatBar extends Component {
 
- constructor(props) {
+  constructor(props) {
     super(props);
-    this.state = {content: ''};
+    this.state = {
+      content: '',
+      value: ''
+    };
 
     this.onSubmission = this.onSubmission.bind(this)
-    }
+    this.handleUserChange = this.handleUserChange.bind(this)
+  }
 
   onSubmission(event) {
     event.preventDefault();
@@ -20,6 +24,15 @@ class ChatBar extends Component {
     }
   }
 
+  handleUserChange(event) {
+    event.preventDefault();
+      if(event.key === 'Enter') {
+        let newUser = event.target
+        console.log("handleUserChange", event.target.value)
+        this.setState({value: newUser.value});
+        this.props.changeUser(newUser.value)
+    }
+  }
 
   render() {
     return(
@@ -28,6 +41,8 @@ class ChatBar extends Component {
           className="chatbar-username"
           placeholder="Your Name (Optional)"
           defaultValue={this.props.currentUser}
+          onKeyUp={this.handleUserChange}
+
           />
         <input
           className="chatbar-message"
