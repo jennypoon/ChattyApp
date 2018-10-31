@@ -68,9 +68,9 @@ constructor(props) {
     super(props);
 
     this.state = {
-      currentUser: data.currentUser,
-      messages: [data.messages]
-    }
+      currentUser: {name: "Bob"}, //data.currentUser,
+      messages: []
+    };
 
     this.addMessage = this.addMessage.bind(this)
 
@@ -88,36 +88,21 @@ addMessage(message, user) {
 
   this.socket.send(JSON.stringify(newMessage));
 
-  // console.log("newMessage in AddMessage:", newMessage)
-
-  // const newMessages = this.state.messages.concat(newMessage)
-
-  // this.setState({messages: newMessages})
-
-  }
+}
 
 componentDidMount() {
   this.socket = new WebSocket("ws://localhost:3001/");
 
-  this.socket.onopen = function () {
-      console.log("Connected to Websocket Server")
+  this.socket.onmessage = (message) => {
+    let messageWithId = JSON.parse(message.data);
+    console.log("message from WS Server", messageWithId)
+
+    const newMessages = this.state.messages.concat(messageWithId)
+    this.setState({messages: newMessages})
 
   }
 
-
 }
-//   console.log("componentDidMount <App />");
-//   setTimeout(() => {
-//     console.log("Simulating incoming message");
-//     // Add a new message to the list of messages in the data store
-//     const newMessage = {id: 3, username: "Michelle", content: "Hello there!", type: "incomingMessage" };
-//     const newMessages = this.state.messages.concat(newMessage)
-//     // Update the state of the app component.
-//     // Calling setState will trigger a call to render() in App and all child components.
-//     this.setState({messages: newMessages})
-
-//   }, 3000);
-// }
 
 
   render() {
