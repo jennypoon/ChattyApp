@@ -69,7 +69,7 @@ constructor(props) {
 
     this.state = {
       currentUser: data.currentUser,
-      messages: data.messages
+      messages: [data.messages]
     }
 
     this.addMessage = this.addMessage.bind(this)
@@ -77,25 +77,35 @@ constructor(props) {
 }
 
 addMessage(message, user) {
+  console.log("Messaged recieved!")
+
   const newMessage = {
-    id: this.state.messages.length + 1,
-    type: "incomingMessage",
+    // id: this.state.messages.length + 1,
+    // type: "incomingMessage",
     content: message,
     username: user
   }
 
-  console.log("newMessages in AddMessage:", newMessages)
+  this.socket.send(JSON.stringify(newMessage));
 
-  const newMessages = this.state.messages.concat(newMessage)
-  console.log("Messaged recieved!")
-  console.log("newMessages", newMessages)
-  this.setState({messages: newMessages})
+  // console.log("newMessage in AddMessage:", newMessage)
+
+  // const newMessages = this.state.messages.concat(newMessage)
+
+  // this.setState({messages: newMessages})
+
+  }
+
+componentDidMount() {
+  this.socket = new WebSocket("ws://localhost:3001/");
+
+  this.socket.onopen = function () {
+      console.log("Connected to Websocket Server")
 
   }
 
 
-
-// componentDidMount() {
+}
 //   console.log("componentDidMount <App />");
 //   setTimeout(() => {
 //     console.log("Simulating incoming message");
