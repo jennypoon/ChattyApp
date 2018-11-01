@@ -57,6 +57,10 @@ wss.on('connection', (ws) => {
         })
         break;
 
+      default:
+        throw new Error("Unknown event type " + data.type);
+
+
     }
   })
 
