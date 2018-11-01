@@ -15,10 +15,10 @@ class ChatBar extends Component {
 
   onSubmission(event) {
     event.preventDefault();
+
     if(event.key === 'Enter') {
       let messageInput = event.target
       let user = this.props.currentUser;
-      console.log("messageInput:", messageInput.value);
       this.props.addMessage(messageInput.value, user);
       messageInput.value = "";
     }
@@ -26,13 +26,14 @@ class ChatBar extends Component {
 
   handleUserChange(event) {
     event.preventDefault();
+
       if(event.key === 'Enter') {
         let newUser = event.target
-        console.log("handleUserChange", event.target.value)
         this.setState({value: newUser.value});
         this.props.changeUser(newUser.value)
     }
   }
+
 
   render() {
     return(
