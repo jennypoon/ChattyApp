@@ -17,6 +17,11 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
+wss.broadcast = function(data) {
+  wss.clients.forEach(client =>
+    client.send(data))
+};
+
 // Set up a callback that will run when a client connects to the server
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
@@ -29,9 +34,8 @@ wss.on('connection', (ws) => {
     content: wss.clients.size
   }
 
-  wss.clients.forEach(client => {
-    client.send(JSON.stringify(totalUserConnected))
-  })
+  wss.broadcast(JSON.stringify(totalUserConnected))
+
 
   //Incoming message from Browser
   ws.on('message', function incoming(event) {
@@ -49,9 +53,7 @@ wss.on('connection', (ws) => {
           content: incomingEvent.content
         }
 
-        wss.clients.forEach(client => {
-          client.send(JSON.stringify(messageWithId))
-        })
+        wss.broadcast(JSON.stringify(messageWithId));
         break;
 
       case 'incomingNotification':
@@ -63,9 +65,7 @@ wss.on('connection', (ws) => {
           content: incomingEvent.content
         }
 
-        wss.clients.forEach(client => {
-          client.send(JSON.stringify(notificationMsg))
-        })
+        wss.broadcast(JSON.stringify(notificationMsg));
         break;
 
       default:
@@ -82,8 +82,6 @@ wss.on('connection', (ws) => {
       content: wss.clients.size
     }
 
-    wss.clients.forEach(client => {
-      client.send(JSON.stringify(totalUserConnected))
-    })
+    wss.broadcast(JSON.stringify(totalUserConnected))
   });
 });
