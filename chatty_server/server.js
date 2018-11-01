@@ -29,7 +29,14 @@ wss.broadcast = function(data) {
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   let name = 'Anonymous';
+  let color = '#008080';
+
   console.log('Client connected');
+  wss.broadcast(JSON.stringify({
+    type: 'userColour',
+    content: color
+  }))
+
   // console.log(wss.clients.size)
 
   let totalUserConnected = {
@@ -73,7 +80,7 @@ wss.on('connection', (ws) => {
         }
         if(incomingEvent.newName){
           name = incomingEvent.newName;
-          console.log('New Name', name);
+          // console.log('New Name', name);
         }
         wss.broadcast(JSON.stringify(notificationMsg));
         break;
