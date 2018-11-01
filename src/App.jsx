@@ -67,8 +67,9 @@ constructor(props) {
     super(props);
 
     this.state = {
-      currentUser: {name: "Bob"}, //data.currentUser,
-      messages: []
+      currentUser: {name: "Anonymous"}, //data.currentUser,
+      messages: [],
+      usersConnected: 0
     };
 
     this.addMessage = this.addMessage.bind(this)
@@ -92,7 +93,6 @@ addMessage(message, user) {
 
 changeUser(user) {
   console.log("Change User - user:", user)
-  console.log("this state currentusername", this.state.currentUser.name)
   this.setState({currentUser: {name: user}})
 
   this.socket.send(JSON.stringify({
@@ -112,14 +112,19 @@ componentDidMount() {
   this.socket.onmessage = (message) => {
     console.log("Socket message", message)
 
-    let messageWithId = JSON.parse(message.data);
-    console.log("message from WS Server", messageWithId)
+    let wsEvent = JSON.parse(message.data);
 
-    const newMessages = this.state.messages.concat(messageWithId)
+    if (wsEvent.type === "totalUserValue"){
+      console.log("you got totalUserValue!", wsEvent.content )
+      this.setState({usersConnected: wsEvent.content})
+
+    } else {
+    console.log("message from WS Server", wsEvent)
+
+    const newMessages = this.state.messages.concat(wsEvent)
     this.setState({messages: newMessages})
-
+    }
   }
-
 }
 
 
@@ -127,7 +132,10 @@ componentDidMount() {
     console.log("current state after render", this.state)
     return (
       <div>
-        <Navbar />
+        <nav className="navbar">
+          <a href="/" className="navbar-brand">Chatty</a>
+          <span className="navbar-userscount">Users connected:{ this.state.usersConnected }</span>
+        </nav>
         <MessageList currentMessage={ this.state.messages }/>
         <ChatBar changeUser={ this.changeUser } addMessage={ this.addMessage } currentUser={ this.state.currentUser.name } />
       </div>
