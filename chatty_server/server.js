@@ -17,6 +17,8 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
+
+//Broadcast Function
 wss.broadcast = function(data) {
   wss.clients.forEach(client =>
     client.send(data))
@@ -26,30 +28,37 @@ wss.broadcast = function(data) {
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
+  let name = 'Anonymous';
   console.log('Client connected');
-  console.log(wss.clients.size)
+  // console.log(wss.clients.size)
 
   let totalUserConnected = {
     type: 'totalUserValue',
     content: wss.clients.size
   }
 
+  wss.broadcast(JSON.stringify({
+    type: 'incomingNotification',
+    id: uuidv4(),
+    content: name + ' has joined'
+  }))
+
   wss.broadcast(JSON.stringify(totalUserConnected))
 
 
   //Incoming message from Browser
   ws.on('message', function incoming(event) {
-    console.log("ws.on message:", event);
+    // console.log("ws.on message:", event);
     let incomingEvent = JSON.parse(event);
 
     switch(incomingEvent.type) {
       case 'incomingMessage':
-        console.log(`User ${incomingEvent.username} said ${incomingEvent.content}`)
+        console.log(`User ${name} said ${incomingEvent.content}`)
 
         let messageWithId = {
           id: uuidv4(),
           type:'incomingMessage',
-          username: incomingEvent.username,
+          username: name,
           content: incomingEvent.content
         }
 
@@ -57,14 +66,15 @@ wss.on('connection', (ws) => {
         break;
 
       case 'incomingNotification':
-        console.log("notification", `${incomingEvent.content}`)
-
         let notificationMsg = {
           id: uuidv4(),
           type: 'incomingNotification',
           content: incomingEvent.content
         }
-
+        if(incomingEvent.newName){
+          name = incomingEvent.newName;
+          console.log('New Name', name);
+        }
         wss.broadcast(JSON.stringify(notificationMsg));
         break;
 
@@ -79,9 +89,16 @@ wss.on('connection', (ws) => {
 
     let totalUserConnected = {
       type: 'totalUserValue',
-      content: wss.clients.size
+      content: wss.clients.size,
     }
 
+    wss.broadcast(JSON.stringify({
+      type: 'incomingNotification',
+      id: uuidv4(),
+      content: name + ' has left'
+    }))
+
     wss.broadcast(JSON.stringify(totalUserConnected))
+
   });
 });
