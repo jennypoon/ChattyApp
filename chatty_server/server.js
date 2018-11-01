@@ -22,9 +22,20 @@ const wss = new SocketServer({ server });
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client connected');
+  console.log(wss.clients.size)
+
+  let totalUserConnected = {
+    type: 'totalUserValue',
+    content: wss.clients.size
+  }
+
+  wss.clients.forEach(client => {
+    client.send(JSON.stringify(totalUserConnected))
+  })
+
   //Incoming message from Browser
   ws.on('message', function incoming(event) {
-    console.log("ws.on message:", event)
+    console.log("ws.on message:", event);
     let incomingEvent = JSON.parse(event);
 
     switch(incomingEvent.type) {
@@ -59,8 +70,6 @@ wss.on('connection', (ws) => {
 
       default:
         throw new Error("Unknown event type " + data.type);
-
-
     }
   })
 
