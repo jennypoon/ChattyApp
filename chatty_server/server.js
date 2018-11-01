@@ -44,7 +44,7 @@ wss.on('connection', (ws) => {
         break;
 
       case 'incomingNotification':
-        console.log(`${incomingEvent.content}`)
+        console.log("notification", `${incomingEvent.content}`)
 
         let notificationMsg = {
           id: uuidv4(),
