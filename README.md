@@ -1,7 +1,7 @@
 
 # EckGO
 
-EckGO an online communication service that allows users on the same server to chat with each other in real-time.
+EckGO an online communication service built using React that allows users on the same server to chat with each other in real-time.
 
 ## Getting Started
 
