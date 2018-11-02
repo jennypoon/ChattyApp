@@ -42,7 +42,7 @@ wss.on('connection', (ws) => {
   }
 
   let usercolor = getRandomColor();
-  let name = 'Anonymous';
+  let name = 'Zubat';
 
 //TOTAL USERS
   let totalUserConnected = {
@@ -53,7 +53,7 @@ wss.on('connection', (ws) => {
   wss.broadcast(JSON.stringify({
     type: 'incomingNotification',
     id: uuidv4(),
-    content: name + ' has joined'
+    content: `A wild ${name} has appeared`
   }))
 
   wss.broadcast(JSON.stringify(totalUserConnected))
@@ -108,7 +108,7 @@ wss.on('connection', (ws) => {
     wss.broadcast(JSON.stringify({
       type: 'incomingNotification',
       id: uuidv4(),
-      content: name + ' has left'
+      content: name + ' has fled'
     }))
 
     wss.broadcast(JSON.stringify(totalUserConnected))
