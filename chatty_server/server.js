@@ -28,17 +28,23 @@ wss.broadcast = function(data) {
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
-  let name = 'Anonymous';
-  let color = '#008080';
-
   console.log('Client connected');
-  wss.broadcast(JSON.stringify({
-    type: 'userColour',
-    content: color
-  }))
 
-  // console.log(wss.clients.size)
 
+//USER SPECIFIC
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  let usercolor = getRandomColor();
+  let name = 'Anonymous';
+
+//TOTAL USERS
   let totalUserConnected = {
     type: 'totalUserValue',
     content: wss.clients.size
@@ -53,40 +59,40 @@ wss.on('connection', (ws) => {
   wss.broadcast(JSON.stringify(totalUserConnected))
 
 
-  //Incoming message from Browser
+//INCOMING MESSAGES FROM BROWSER
   ws.on('message', function incoming(event) {
-    // console.log("ws.on message:", event);
     let incomingEvent = JSON.parse(event);
 
     switch(incomingEvent.type) {
+
       case 'incomingMessage':
-        console.log(`User ${name} said ${incomingEvent.content}`)
+            let messageWithId = {
+                  id: uuidv4(),
+                  type:'incomingMessage',
+                  username: name,
+                  content: incomingEvent.content,
+                  color: usercolor
+            }
 
-        let messageWithId = {
-          id: uuidv4(),
-          type:'incomingMessage',
-          username: name,
-          content: incomingEvent.content
-        }
-
-        wss.broadcast(JSON.stringify(messageWithId));
-        break;
+            wss.broadcast(JSON.stringify(messageWithId));
+            break;
 
       case 'incomingNotification':
-        let notificationMsg = {
-          id: uuidv4(),
-          type: 'incomingNotification',
-          content: incomingEvent.content
-        }
-        if(incomingEvent.newName){
-          name = incomingEvent.newName;
-          // console.log('New Name', name);
-        }
-        wss.broadcast(JSON.stringify(notificationMsg));
-        break;
+            let notificationMsg = {
+                  id: uuidv4(),
+                  type: 'incomingNotification',
+                  content: incomingEvent.content
+            }
+
+            if(incomingEvent.newName){
+              name = incomingEvent.newName;
+            }
+
+            wss.broadcast(JSON.stringify(notificationMsg));
+            break;
 
       default:
-        throw new Error("Unknown event type " + data.type);
+            throw new Error("Unknown event type " + data.type);
     }
   })
 
