@@ -4,14 +4,13 @@ import React, { Component } from 'react';
 class MessageList extends Component {
 
   render() {
-
     const message = this.props.currentMessage.map(message => {
       return < Message
         key={message.id}
         user={message.username}
         content={message.content}
         type={message.type}
-        color={this.props.color}
+        color={message.color}
         />
     })
 
