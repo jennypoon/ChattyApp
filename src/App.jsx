@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentUser: {name: "Anonymous"},
+      currentUser: {name: 'Zubat'},
       messages: [],
       usersConnected: 0,
     };
@@ -21,7 +21,7 @@ class App extends Component {
   addMessage(message, user) {
 
     const newMessage = {
-      type: "incomingMessage",
+      type: 'incomingMessage',
       content: message,
       username: user,
     }
@@ -33,18 +33,18 @@ class App extends Component {
 
     this.socket.send(JSON.stringify({
       type: 'incomingNotification',
-      content: this.state.currentUser.name + ' has changed their name to ' + user,
+      content: this.state.currentUser.name + ' has evolved to a ' + user,
       newName: user
     }))
   }
 
   componentDidMount() {
   //Create a new socket
-    this.socket = new WebSocket("ws://localhost:3001/");
+    this.socket = new WebSocket('ws://localhost:3001/');
 
   //Once Socket opens from server
-    this.socket.onopen = (event) => {
-      console.log("Connected to server");
+    this.socket.onopen = () => {
+      console.log('Connected to server');
     };
 
   //Receives Server Messages
@@ -53,7 +53,7 @@ class App extends Component {
 
       switch(wsEvent.type) {
 
-        case ("totalUserValue"):
+        case ('totalUserValue'):
           this.setState({
             usersConnected: wsEvent.content,
           })
@@ -61,10 +61,10 @@ class App extends Component {
 
         default:
           // For Notifications and New Messages
-          const newMessages = this.state.messages.concat(wsEvent)
+          let newMessages = this.state.messages.concat(wsEvent)
           this.setState({
             messages: newMessages,
-            })
+          })
       }
     }
   }
@@ -72,10 +72,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar">
-          <a href="/" className="navbar-brand">eckGO</a>
-          <img className="navbar-logo" src="../build/bat.png" alt="bat" />
-          <span className="navbar-userscount">EkGOers On : { this.state.usersConnected }</span>
+        <nav className='navbar'>
+          <a href='/' className='navbar-brand'>eckGO</a>
+          <img className='navbar-logo' src='../build/bat.png' alt='bat' />
+          <span className='navbar-userscount'>Zubats in Cave : { this.state.usersConnected }</span>
         </nav>
         <MessageList currentMessage={ this.state.messages }/>
         <ChatBar changeUser={ this.changeUser } addMessage={ this.addMessage } currentUser={ this.state.currentUser.name } />
@@ -83,5 +83,8 @@ class App extends Component {
     )
   }
 }
+
+
+
 
 export default App;
