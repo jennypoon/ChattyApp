@@ -9,15 +9,15 @@ class ChatBar extends Component {
       value: ''
     };
 
-    this.onSubmission = this.onSubmission.bind(this)
-    this.handleUserChange = this.handleUserChange.bind(this)
+    this.onSubmission = this.onSubmission.bind(this);
+    this.handleUserChange = this.handleUserChange.bind(this);
   }
 
   onSubmission(event) {
     event.preventDefault();
 
     if(event.key === 'Enter') {
-      let messageInput = event.target
+      let messageInput = event.target;
       let user = this.props.currentUser;
       this.props.addMessage(messageInput.value, user);
       messageInput.value = '';
@@ -28,9 +28,9 @@ class ChatBar extends Component {
     event.preventDefault();
 
       if(event.key === 'Enter') {
-        let newUser = event.target
+        let newUser = event.target;
         this.setState({value: newUser.value});
-        this.props.changeUser(newUser.value)
+        this.props.changeUser(newUser.value);
     }
   }
 

@@ -14,8 +14,8 @@ class App extends Component {
       usersConnected: 0,
     };
 
-    this.addMessage = this.addMessage.bind(this)
-    this.changeUser = this.changeUser.bind(this)
+    this.addMessage = this.addMessage.bind(this);
+    this.changeUser = this.changeUser.bind(this);
   }
 
   addMessage(message, user) {
@@ -29,13 +29,13 @@ class App extends Component {
   }
 
   changeUser(user) {
-    this.setState({currentUser: {name: user}})
+    this.setState({currentUser: {name: user}});
 
     this.socket.send(JSON.stringify({
       type: 'incomingNotification',
       content: this.state.currentUser.name + ' has evolved to a ' + user,
       newName: user
-    }))
+    }));
   }
 
   componentDidMount() {
@@ -64,7 +64,7 @@ class App extends Component {
           let newMessages = this.state.messages.concat(wsEvent)
           this.setState({
             messages: newMessages,
-          })
+          });
       }
     }
   }
