@@ -21,3 +21,7 @@ EckGO an online communication service built using React that allows users on the
 - [babel-loader](https://github.com/babel/babel-loader)
 - [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 
+## Future Features
+- Cave styling
+- Add "Change Username" button
+- Displays the image when a URL of an image is posted
