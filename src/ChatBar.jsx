@@ -20,7 +20,7 @@ class ChatBar extends Component {
       let messageInput = event.target
       let user = this.props.currentUser;
       this.props.addMessage(messageInput.value, user);
-      messageInput.value = "";
+      messageInput.value = '';
     }
   }
 
