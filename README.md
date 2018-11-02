@@ -1,45 +1,23 @@
-React Boilerplate
-=====================
 
-A minimal and light dev environment for ReactJS.
+# EckGO
 
-### Usage
+EckGO an online communication service that allows users on the same server to chat with each other in real-time.
 
-Clone the boilerplate and create your own git repo.
+## Getting Started
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+1. Install dependencies using the `npm install` command.
+2. Start the web server using the `npm start` command.
+3. Go into the chatty_server start the websocket using `npm start` command.
+4. Go to <http://localhost:3000/> in your browser and explore Eckgo!
 
-Install the dependencies and start the server.
+## Final Product
+!["On Open"](https://github.com/jpoon15/ChattyApp/build/startup.png)
+!["Chatting"](https://github.com/jpoon15/ChattyApp/build/chatting.png)
+!["User Exits"](https://github.com/jpoon15/ChattyApp/build/exits.png)
 
-```
-npm install
-npm start
-open http://localhost:3000
-```
+## Dependencies
+- React
+- Webpack
+- [babel-loader](https://github.com/babel/babel-loader)
+- [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
-
-### Dependencies
-
-* React
-* Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
