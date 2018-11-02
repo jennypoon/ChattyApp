@@ -11,9 +11,9 @@ EckGO an online communication service built using React that allows users on the
 4. Go to <http://localhost:3000/> in your browser and explore Eckgo!
 
 ## Final Product
-!["On Open"](https://github.com/jennypoon/ChattyApp/build/startup.png)
-!["Chatting"](https://github.com/jennypoon/ChattyApp/build/chatting.png)
-!["User Exits"](https://github.com/jennypoon/ChattyApp/build/exits.png)
+!["On Open"](https://github.com/jennypoon/ChattyApp/blob/master/build/startup.png)
+!["Chatting"](https://github.com/jennypoon/ChattyApp/blob/master/build/chatting.png)
+!["User Exits"](https://github.com/jennypoon/ChattyApp/blob/master/build/exits.png)
 
 ## Dependencies
 - React
