@@ -73,8 +73,9 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-          <span className="navbar-userscount">Users connected:{ this.state.usersConnected }</span>
+          <a href="/" className="navbar-brand">eckGO</a>
+          <img className="navbar-logo" src="../build/bat.png" alt="bat" />
+          <span className="navbar-userscount">EkGOers On : { this.state.usersConnected }</span>
         </nav>
         <MessageList currentMessage={ this.state.messages }/>
         <ChatBar changeUser={ this.changeUser } addMessage={ this.addMessage } currentUser={ this.state.currentUser.name } />
