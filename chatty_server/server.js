@@ -6,7 +6,8 @@ const uuidv4 = require('uuid/v4');
 
 
 // Set the port to 3001
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+
 
 // Create a new express server
 const server = express()
