@@ -18,7 +18,7 @@ const server = express()
   // .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
 
 const httpServer = http.createServer(server)
-httpServer.listen(port)
+httpServer.listen(PORT)
 
 
 // Create the WebSockets server
