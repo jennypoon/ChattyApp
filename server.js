@@ -20,3 +20,6 @@ new WebpackDevServer(webpack(config), {
 
     console.log('Running at http://0.0.0.0:3000');
   });
+
+
+//sudo lsof -t -i tcp:8080 | xargs kill -9
