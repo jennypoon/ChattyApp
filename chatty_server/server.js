@@ -1,14 +1,14 @@
 // server.js
 
 const express = require('express');
-const SocketServer = require('ws').Server;
+const SocketServer = require('ws');
 const http = require('http')
 
 const uuidv4 = require('uuid/v4');
 
 
 // Set the port to 3001
-const PORT = process.env.PORT || 3001;
+const port = process.env.PORT || 3001;
 
 
 // Create a new express server
@@ -18,13 +18,13 @@ const server = express()
   // .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
 
 const httpServer = http.createServer(server)
-httpServer.listen(PORT)
-
 
 // Create the WebSockets server
 const wss = new SocketServer({
     'server': httpServer
 })
+
+httpServer.listen(port)
 
 //Broadcast Function
 wss.broadcast = function(data) {
