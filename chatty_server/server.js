@@ -23,8 +23,6 @@ const wss = new SocketServer({ server
     // 'server': httpServer
 })
 
-httpServer.listen(port)
-
 //Broadcast Function
 wss.broadcast = function(data) {
   wss.clients.forEach(client =>
