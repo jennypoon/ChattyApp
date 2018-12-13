@@ -2,7 +2,6 @@
 
 const express = require('express');
 const SocketServer = require('ws').Server;
-const http = require('http')
 
 const uuidv4 = require('uuid/v4');
 
@@ -15,13 +14,13 @@ const port = process.env.PORT || 3001;
 const server = express()
    // Make the express server serve static assets (html, javascript, css) from the /public folder
   .use(express.static('public'))
-  // .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
+  .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
 
-const httpServer = http.createServer(server)
+// const httpServer = http.createServer(server)
 
 // Create the WebSockets server
-const wss = new SocketServer({
-    'server': httpServer
+const wss = new SocketServer({ server
+    // 'server': httpServer
 })
 
 httpServer.listen(port)
