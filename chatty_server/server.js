@@ -1,7 +1,7 @@
 // server.js
 
 const express = require('express');
-const SocketServer = require('ws');
+const SocketServer = require('ws').Server;
 const http = require('http')
 
 const uuidv4 = require('uuid/v4');
