@@ -20,8 +20,8 @@ const server = express()
   .listen(port, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ port }`))
 
    if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'build')));
-    app.get('*', function (req, res) {
+    server.use(express.static(path.join(__dirname, 'build')));
+    server.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, 'build', 'index.html'));
     })
   }
