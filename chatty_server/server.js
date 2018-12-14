@@ -17,14 +17,14 @@ const port = process.env.PORT || 3001;
 const server = express()
    // Make the express server serve static assets (html, javascript, css) from the /public folder
   .use(express.static('public'))
-  .listen(port, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ port }`))
+  .listen(port, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ port }`));
 
-   if (process.env.NODE_ENV === 'production') {
-    server.use(express.static(path.join(__dirname, 'build')));
-    server.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'build', 'index.html'));
-    })
-  }
+if (process.env.NODE_ENV === 'production') {
+  server.use(express.static(path.join(__dirname, 'build')));
+  server.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  })
+}
 
 
 
