@@ -25,10 +25,10 @@
   "bugs": {
     "url": "https://github.com/noahlotzer/react-simple-boilerplate/issues"
   },
-  "homepage": "https://github.com/noahlotzer/react-simple-boilerplate",
   "engines": {
-    "node": ">=6.0.0"
+    "node": "10.11.0"
   },
+  "homepage": "https://github.com/noahlotzer/react-simple-boilerplate",
   "devDependencies": {
     "babel-core": "6.23.1",
     "babel-loader": "6.3.1",
