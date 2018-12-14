@@ -14,7 +14,7 @@ const port = process.env.PORT || 3001;
 const server = express()
    // Make the express server serve static assets (html, javascript, css) from the /public folder
   // .use(express.static('public'))
-  .use(express.static(path.join(__dirname,'../../public')));
+  .use(express.static(path.join(__dirname,'../../public')))
   .listen(port, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ port }`));
 
 // const httpServer = http.createServer(server)
